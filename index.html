@@ -71,8 +71,8 @@ async function loadWords(){
 function generatePassword(){
   if(!READY || WORDS.length === 0) return 'BŁĄD_BRAK_BAZY';
 
-  const w1 = cap(normalizePL(rand(WORDS)));
-  const w2 = cap(normalizePL(rand(WORDS)));
+  const w1 = cap(rand(WORDS));
+  const w2 = cap(rand(WORDS));
   const d1 = randDigit();
   const d2 = randDigit();
   const s1 = rand(specials);
