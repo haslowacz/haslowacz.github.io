@@ -1,29 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generator Prostych Haseł</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap">
-    <link rel="icon" type="image/x-icon" href="icon.png">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Generator haseł</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css?family=VT323&display=swap');
+body{margin:0;background:#131516;color:#f7e8ce;font-family:VT323,monospace;min-height:100vh}
+.container{max-width:900px;margin:0 auto;padding:5vh 5vw}
+.title{color:#ffe082;font-size:2em;margin-bottom:.5em}
+.subtitle{color:#ff66cc;margin-bottom:1em}
+.button{font-family:VT323,monospace;font-size:1.3em;padding:.3em 1.6em;color:#ffe082;background:transparent;border:2.5px solid #ffe082;border-radius:10px;cursor:pointer;box-shadow:0 2px 14px #000c;transition:.2s}
+.button:hover{background:#23262a}
+.list{margin-top:2em;display:flex;flex-direction:column;gap:1em}
+.item{background:#181a1d;border:2px solid #80ffd7;border-radius:10px;padding:.6em .8em;display:flex;align-items:center;justify-content:space-between;gap:1em}
+.pass{word-break:break-all;color:#fffbe6;font-size:1.4em}
+.copy{font-family:VT323,monospace;font-size:1em;padding:.2em .8em;border:2px solid #ff66cc;border-radius:8px;background:transparent;color:#ff66cc;cursor:pointer}
+.copy:hover{background:#2a1f28}
+.footer{margin-top:3em;color:#80ffd7;font-size:.9em}
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>🔒Generator Prostych Haseł</h1><h5>by DS</h5>
-        
-        <div class="password-container">
-            <label for="quantity">Ilość haseł: <span id="quantityValue">5</span></label>
-            <input type="range" id="quantity" min="1" max="20" value="5" class="slider" oninput="updateQuantityValue()">
-            <label for="numSpecialChars">Ilość znaków specjalnych: <span id="numSpecialCharsValue">2</span></label>
-            <input type="range" id="numSpecialChars" min="0" max="5" value="2" class="slider" oninput="updateNumSpecialCharsValue()">
-            <label for="numNumbers">Ilość liczb: <span id="numNumbersValue">2</span></label>
-            <input type="range" id="numNumbers" min="0" max="5" value="2" class="slider" oninput="updateNumNumbersValue()">
-            <button onclick="generatePasswords()"><b>Generuj hasła</b></button>
-            <textarea id="generatedPasswords" readonly></textarea>
-        </div>
-    </div>
-    <script src="script.js"></script>
+<div class="container">
+  <div class="title">Generator haseł</div>
+  <div class="subtitle">2 polskie słowa + 2 cyfry + 2 znaki specjalne</div>
+  <button class="button" id="genBtn">Generuj 5 haseł</button>
+  <div class="list" id="list"></div>
+  <div class="footer">Format: SłowoSłowo13#$</div>
+</div>
+
+<script>
+// ====== UKRYTA BAZA (fragment – demo) ======
+const _a="Y0Z3YzJ0bGJXSnNaV1Z5CmRYSnBibVZ6YzJObA==";
+const _b="Q25CcFpXTjBhVzVsYzJObApabTl5WlhRdQ==";
+const _c="Q25CeVpYUmxjbkpsYzJObA==";
+
+function _x(s,k=73){
+  const b=atob(s);let o='';
+  for(let i=0;i<b.length;i++) o+=String.fromCharCode(b.charCodeAt(i)^k);
+  return o;
+}
+
+function _loadWords(){
+  const merged=_a+_b+_c;
+  const decoded=_x(merged);
+  return decoded.split(/\r?\n/).map(w=>w.trim()).filter(w=>w.length>2);
+}
+
+let words=_loadWords();
+
+// ====== LOGIKA GENERATORA ======
+const specials=['!','@','#','$','%','&','*','?','+','-','_'];
+function r(a){return a[Math.floor(Math.random()*a.length)]}
+function d(){return Math.floor(Math.random()*10)}
+function c(w){return w.charAt(0).toUpperCase()+w.slice(1)}
+
+function gen(){
+  return `${c(r(words))}${c(r(words))}${d()}${d()}${r(specials)}${r(specials)}`;
+}
+
+const list=document.getElementById('list');
+document.getElementById('genBtn').addEventListener('click',()=>{
+  list.innerHTML='';
+  for(let i=0;i<5;i++){
+    const p=gen();
+    const div=document.createElement('div');div.className='item';
+    const span=document.createElement('span');span.className='pass';span.textContent=p;
+    const btn=document.createElement('button');btn.className='copy';btn.textContent='Kopiuj';
+    btn.onclick=()=>{navigator.clipboard.writeText(p);btn.textContent='Skopiowano';setTimeout(()=>btn.textContent='Kopiuj',1200)};
+    div.appendChild(span);div.appendChild(btn);list.appendChild(div);
+  }
+});
+</script>
 </body>
 </html>
