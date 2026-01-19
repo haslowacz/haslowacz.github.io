@@ -68,18 +68,11 @@ async function loadWords(){
   }
 }
 
-function normalizePL(word) {
-  return word
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ł/g,'l').replace(/Ł/g,'L');
-}
-
 function generatePassword(){
   if(!READY || WORDS.length === 0) return 'BŁĄD_BRAK_BAZY';
 
-  const w1 = cap(normalizePL(rand(WORDS)));
-  const w2 = cap(normalizePL(rand(WORDS)));
+  const w1 = cap(rand(WORDS));
+  const w2 = cap(rand(WORDS));
   const d1 = randDigit();
   const d2 = randDigit();
   const s1 = rand(specials);
