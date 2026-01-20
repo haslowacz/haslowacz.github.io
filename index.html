@@ -19,6 +19,10 @@ body{margin:0;background:#131516;color:#f7e8ce;font-family:VT323,monospace;min-h
 .copy{font-family:VT323,monospace;font-size:1em;padding:.2em .8em;border:2px solid #ff66cc;border-radius:8px;background:transparent;color:#ff66cc;cursor:pointer}
 .copy:hover{background:#2a1f28}
 .footer{margin-top:3em;color:#80ffd7;font-size:.9em}
+.site-footer {margin-top: 2.5em;padding-top: 1em;border-top: 1px dashed #80ffd744;display: flex;justify-content: center;align-items: center;gap: .6em;font-size: .9em;color: #80ffd7;}
+.site-footer a {color: #ff66cc;text-decoration: none;transition: color .2s ease, text-shadow .2s ease;}
+.site-footer a:hover {color: #ffe082;text-shadow: 0 0 6px #ffe082, 0 0 12px #ff66cc;}
+.site-footer .sep {color: #ffe082;opacity: .6;}
 </style>
 </head>
 <body>
@@ -29,6 +33,16 @@ body{margin:0;background:#131516;color:#f7e8ce;font-family:VT323,monospace;min-h
   <div class="list" id="list"></div>
   <div class="footer">Format hasła: SłowoSłowo13#$</div>
   <div class="footer">Autor: Damian Stańczak</div>
+  <div class="site-footer">
+  <span>© <span id="year"></span> Generator haseł</span>
+  <span class="sep">•</span>
+<a href="https://github.com/haslowacz/haslowacz.github.io" target="_blank">
+    GitHub
+  </a>
+<a href="https://pl.linkedin.com/in/damian-stanczak" target="_blank" class="linkedin">
+  LinkedIn
+</a>
+</div>
 </div>
 
 <script>
@@ -117,6 +131,7 @@ btn.addEventListener('click',()=>{
 btn.disabled = true;
 btn.textContent = 'Ładowanie bazy…';
 loadWords();
+document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
