@@ -11,7 +11,7 @@ body{margin:0;background:#131516;color:#f7e8ce;font-family:VT323,monospace;min-h
 .container{max-width:900px;margin:0 auto;padding:5vh 5vw}
 .title{color:#ffe082;font-size:2em;margin-bottom:.5em}
 .subtitle{color:#ff66cc;margin-bottom:1em}
-.button{font-family:VT323,monospace;font-size:1.3em;padding:.3em 1.6em;color:#ffe082;background:transparent;border:2.5px solid #ffe082;border-radius:10px;cursor:pointer;box-shadow:0 2px 14px #000c;tra[...]
+.button{font-family:VT323,monospace;font-size:1.3em;padding:.3em 1.6em;color:#ffe082;background:transparent;border:2.5px solid #ffe082;border-radius:10px;cursor:pointer;box-shadow:0 2px 14px #000c;transition:.2s}
 .button:hover{background:#23262a}
 .list{margin-top:2em;display:flex;flex-direction:column;gap:1em}
 .item{background:#181a1d;border:2px solid #80ffd7;border-radius:10px;padding:.6em .8em;display:flex;align-items:center;justify-content:space-between;gap:1em;width: 60%}
@@ -57,15 +57,6 @@ function rand(arr){ return arr[Math.floor(Math.random()*arr.length)] }
 function randDigit(){ return Math.floor(Math.random()*10) }
 function cap(w){ return w.charAt(0).toUpperCase() + w.slice(1) }
 
-// Zamiana polskich znaków na ich odpowiedniki ASCII
-function normalizePolish(s){
-  if(!s) return s;
-  const map = {
-    'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ż':'z','ź':'z'
-  };
-  return s.replace(/[ąćęłńóśżź]/g, c => map[c] || c);
-}
-
 async function loadWords(){
   try{
     const res = await fetch('baza.txt', { cache: 'no-store' });
@@ -76,7 +67,7 @@ async function loadWords(){
     WORDS = text
       .replace(/^\uFEFF/, '')   // usuń BOM jakby był
       .split(/\r?\n/)
-      .map(w => normalizePolish(w.trim().toLowerCase()))
+      .map(w => w.trim().toLowerCase())
       .filter(w => w.length >= 5);
 
     READY = true;
