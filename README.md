@@ -16,7 +16,7 @@ Prosty, estetyczny generator haseł w przeglądarce. Tworzy silne, a jednocześn
 * 2 losowe polskie słowa
 * 2 losowe cyfry
 * 2 losowe znaki specjalne
-* TransliteracjA polskich znaków
+* Transliteracja polskich znaków
 * Kopiowanie hasła jednym kliknięciem
 * Styl retro (VT323)
 * 100% offline – działa lokalnie w przeglądarce
