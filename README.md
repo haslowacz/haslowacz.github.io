@@ -106,7 +106,10 @@ Dodatkowo:
 **Damian**
 
 ---
+## 📊 Stats 
+![Alt](https://repobeats.axiom.co/api/embed/b337b08da7d8dfdefb12efc2463b470c32b7b97a.svg "Repobeats analytics image")
 
 ## 📜 Licencja
 
 MIT – rób co chcesz, byle nie mów, że to Twój pomysł 😉
+
